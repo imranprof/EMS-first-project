@@ -445,8 +445,8 @@ void delet()
 
     system("cls");
 
-    printf("\n           >>>>>>>>>>>>>>>>>>>> YOU ARE GOING TO DELETE EMPLOYEE DATA <<<<<<<<<<<<<<<<<<<\n");
-    printf("                    PLEASE WRITE THE EMPLOYEE ID FOR DELETE EMPLOYEE \n");
+    printf("\n           >>>>>>>>>>>>>>>>>>>> YOU ARE GOING TO DELETE EMPLOYEE DATA <<<<<<<<<<<<<<<<<<<\n\n");
+    printf("                    PLEASE WRITE THE EMPLOYEE ID FOR DELETE EMPLOYEE : ");
     scanf("%s",&demid);
     FILE *fp3,*fp4;
     fp3 = fopen("Alldata.txt","r");
