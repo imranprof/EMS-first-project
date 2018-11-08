@@ -42,7 +42,7 @@ void mainmenu()
     int choice;
     char sid[40];
 
-    system("COLOR 5F");         //for coloring background and foreground
+    system("COLOR 5F");         ///for coloring background and foreground
 
     design();
 
@@ -60,29 +60,35 @@ void mainmenu()
     printf("\n                             ENTER YOUR CHOICE: ");
 
     scanf("%d",&choice);
-    if(choice==0)
+
+    if(choice==0)           //for close the program
     {
         exit(0);
     }
-    if(choice==1)
+
+    if(choice==1)           //for calling add_data() function
     {
      add_data();
     }
-    if (choice==3)
+
+    if (choice==3)         //for calling show() function for showing all data
     {
         show();
     }
-    if(choice == 2) {
+
+    if(choice == 2) {       //for calling display_did() function for call search function for search by id
         system("cls");
         printf("\n\n                       DO YOU WANT TO SEARCH BY EMPLOYEE ID ?\n                             ENTER YOUR EMPLOYEE ID : ");
         scanf("%s", sid);
         display_did(sid);
     }
-    if (choice ==4)
+
+    if (choice ==4)         //for calling edit() function for edit employee data
     {
         edit();
     }
-    if (choice == 5)
+
+    if (choice == 5)        //for calling delet() function for delete employee data by id
     {
         delet();
     }
@@ -206,16 +212,15 @@ void add_data(){
         printf("\n           ENTER EMPLOYEE BLOOD GROUP : ");
         scanf("%s",emblg);
         fprintf(fp1, " %s", emblg);
-
-        fflush(stdin);
         fclose(fp1);
+
         printf("\n           @@@@@@@@@@@@@@@@@@ ADD NEW EMPLOYEE DATA INSERTED SUCCESSFULLY @@@@@@@@@@@@@@@@@@\n");
 
         printf("\n     DO YOU ADD ANOTHER EMPLOYEE?                       ENTER 'y/n' ***->>");
         scanf("%c%c", &ch, &c);
 
         if(c == 'y'){
-
+            system("cls");
             add_another();
         }
         else{
@@ -327,7 +332,7 @@ void search_em(FILE *dtf, char aid[]) {
 
 }
 
-///
+///this function also for help search
 void display_did(char did[]){
     FILE *dtf;
     dtf = fopen("Alldata.txt","r");
@@ -340,7 +345,7 @@ void display_did(char did[]){
     search_em(dtf,did);
 }
 
-///Edit employee
+///Edit employee all data by search employee id
 void edit(){
     char emid[40];
     char emname[40];
@@ -432,7 +437,7 @@ void edit(){
 ///delete employee by id
 void delet()
 {
-    int del,ress,i;
+    int del,ress,i, j;
     char demid[40];
     char emid[40];
     char emname[40];
@@ -445,15 +450,17 @@ void delet()
 
     system("cls");
 
-    printf("\n           >>>>>>>>>>>>>>>>>>>> YOU ARE GOING TO DELETE EMPLOYEE DATA <<<<<<<<<<<<<<<<<<<\n\n");
-    printf("                    PLEASE WRITE THE EMPLOYEE ID FOR DELETE EMPLOYEE : ");
+    printf("\n           >>>>>>>>>>>>>>>>>>>> YOU ARE GOING TO DELETE EMPLOYEE DATA <<<<<<<<<<<<<<<<<<<\n");
+    printf("                    PLEASE WRITE THE EMPLOYEE ID FOR DELETE EMPLOYEE \n");
     scanf("%s",&demid);
     FILE *fp3,*fp4;
     fp3 = fopen("Alldata.txt","r");
     fp4 = fopen("Alltemp.txt","w");
+    j = 0;
     while(fscanf(fp3,"%s %s %s %s %s %s %s %s\n",emid, emname,emdes, emdepart, emsallary,  emaddress, emcont, emblg)!=EOF){
         ress = strcmp(demid,emid);
            if(ress == 0){
+                j = 1;
                 continue;
            }
 
@@ -461,9 +468,12 @@ void delet()
 
 
             }
-
+            if(j == 1){
                     printf("\n           >>>>>>>>>>>>>>>>>>>> EMPLOYEE DATA DELETED SUCCESSFULLY <<<<<<<<<<<<<<<<<<<\n");
-
+            }
+            else {
+                printf("\n           >>>>>>>>>>>>>>>>>>>> EMPLOYEE ID NOT FOUND FOR DELETE. <<<<<<<<<<<<<<<<<<<\n");
+            }
                     fclose(fp3);
                     fclose(fp4);
                     remove("Alldata.txt");
